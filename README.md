@@ -18,20 +18,19 @@ Not a dish, but a dash. If it was a dish, it would be a baked potato
 ## 📦 Installation (Lazy.nvim)
 via lazy.nvim:
 
-'''lua
+```lua
 {
     "CaptainGitHook/dish.nvim",
     config = function()
             require("mydash").setup({})
         end
 }
-'''
+```
 
 Defaults are 
 
-'''lua
+```lua
 {
-
     banner=[[
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⡀⠀⠀⠀⢀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣾⠋⠉⣿⣤⣤⡾⠏⠛⢷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
@@ -67,11 +66,10 @@ Defaults are
     projpaths={},
     N_RECENT=5
 }
-'''
-
+```
 
 Example installation:
-'''lua
+```lua
 {
     "CaptainGitHook/dish.nvim",
     config = function()
@@ -103,4 +101,4 @@ Example installation:
     })
     end,
 }
-'''
+```
