@@ -52,19 +52,20 @@ function M.setup(opts)
             else
                 ascii = conf.banner
             end
-
+       
+            local lines
             if type(ascii) == "table" then
-                local lines = ascii
+                lines = ascii
             else
-                local lines = vim.split(ascii, "\n", { plain = true })
+                lines = vim.split(ascii, "\n", { plain = true })
             end
             local height = vim.api.nvim_win_get_height(0)
-            for _=1, math.max(5, math.floor(0.5*(height*0.6-#lines))) do
+            for _=1, math.max(5, math.floor(0.5*(height*0.8-#lines))) do
                 table.insert(lines,1,"") -- insert in front
                 table.insert(lines,"") -- insert in back
             end
 
-            -- Layout: first 60% picture, fifthlast line onwards: stuff
+            -- Layout: first 80% picture, fifthlast line onwards: stuff
             for _=1, math.max(1, math.floor(height-3-#lines)) do
                 table.insert(lines, "")
             end

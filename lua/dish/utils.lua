@@ -9,7 +9,7 @@ function M.center(lines)
     local width = vim.api.nvim_win_get_width(0)
     local out = {}
     for _, line in ipairs(lines) do
-        local pad = math.max(0, math.floor((width - #line) / 2))
+        local pad = math.max(0, math.floor((width - vim.fn.strdisplaywidth(line)) / 2))
         table.insert(out, string.rep(" ", pad) .. line)
     end
     return out
