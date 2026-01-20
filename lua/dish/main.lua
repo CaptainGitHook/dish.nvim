@@ -27,6 +27,15 @@ function M.setup(opts)
                 cursorcolumn = vim.wo.cursorcolumn,
                 wrap = vim.wo.wrap,
             }
+            vim.api.nvim_create_autocmd("BufLeave", {
+                buffer = 0,
+                callback = function()
+                    for k, v in pairs(opts
+                    ) do
+                        vim.wo[k] = v
+                    end
+                end,
+            })
 
             -- Set buffer options *before* writing
             vim.bo[buf].buftype = "nofile"
@@ -52,7 +61,7 @@ function M.setup(opts)
             else
                 ascii = conf.banner
             end
-       
+
             local lines
             if type(ascii) == "table" then
                 lines = ascii
@@ -82,9 +91,6 @@ function M.setup(opts)
                     r = r .. string.format("      %d  %s      |", i, utils.shorten(file, length))
                     vim.keymap.set("n", tostring(i), function()
                         vim.cmd("e " .. vim.fn.fnameescape(file))
-                        for k, v in pairs(opts) do
-                            vim.wo[k] = v
-                        end
                     end, { buffer = buf })
                 end
                 r = r:sub(1, -2) .. "  "

@@ -1,11 +1,12 @@
 # dish.nvim
 
-Not a dish, but a dash. If it was a dish, it would be a baked potato
+Not a dish, but a dash. If it was a dish, it would be instant ramen
 
 ---
 
 ## ✨ Features
 
+- Blazingly fast (since its features are minimal)
 - Custom ASCII banner on startup
 - Only appears when launching Neovim **without arguments**
 - Displays the most recently opened buffers with number shortcuts
@@ -102,3 +103,7 @@ Example installation:
     end,
 }
 ```
+
+## Future Ideas
+
+A "pinned" subpage? Put pinned pages in ~/.local/share/dish/.
