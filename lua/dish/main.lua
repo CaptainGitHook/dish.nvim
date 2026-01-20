@@ -13,13 +13,11 @@ local conf = {
 function M.setup(opts)
     local utils = require("dish.utils")
     conf = vim.tbl_deep_extend('force', conf, opts or {})
-   
+
     vim.api.nvim_create_autocmd("VimEnter", {
         callback = function()
             if not utils.should_show() then return end
 
-            vim.cmd("enew")
-            local buf = vim.api.nvim_get_current_buf()
             local opts = {
                 number = vim.wo.number,
                 relativenumber = vim.wo.relativenumber,
@@ -27,11 +25,14 @@ function M.setup(opts)
                 cursorcolumn = vim.wo.cursorcolumn,
                 wrap = vim.wo.wrap,
             }
+
+
+            vim.cmd("enew")
+            local buf = vim.api.nvim_get_current_buf()
             vim.api.nvim_create_autocmd("BufLeave", {
-                buffer = 0,
                 callback = function()
-                    for k, v in pairs(opts
-                    ) do
+                    -- Enable numbers and stuff for all normal windows
+                    for k,v in pairs(opts) do
                         vim.wo[k] = v
                     end
                 end,
@@ -155,4 +156,3 @@ function M.setup(opts)
 end
 
 return M
-
