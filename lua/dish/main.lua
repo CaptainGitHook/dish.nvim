@@ -20,13 +20,23 @@ function M.setup(opts)
 
             vim.cmd("enew")
             local buf = vim.api.nvim_get_current_buf()
-            local opts = {
-                number = vim.wo.number,
-                relativenumber = vim.wo.relativenumber,
-                cursorline = vim.wo.cursorline,
-                cursorcolumn = vim.wo.cursorcolumn,
-                wrap = vim.wo.wrap,
-            }
+            vim.api.nvim_create_autocmd("SessionLoadPost", {
+                callback = function()
+                -- Enable numbers and stuff for all normal windows
+                for _, win in ipairs(vim.api.nvim_list_wins()) do
+                        local b = vim.api.nvim_win_get_buf(win)
+                        local bt = vim.bo[b].buftype
+
+                        if bt == "" then -- normal file buffer
+                            vim.wo[win].number = vim.wo.number
+                            vim.wo[win].relativenumber = vim.wo.relativenumber
+                            vim.wo[win].cursorline = vim.wo.cursorline
+                            vim.wo[win].cursorcolumn = vim.wo.cursorcolumn
+                            vim.wo[win].wrap = vim.wo.wrap
+                        end
+                    end
+                end,
+            })
 
             -- Set buffer options *before* writing
             vim.bo[buf].buftype = "nofile"
@@ -52,7 +62,7 @@ function M.setup(opts)
             else
                 ascii = conf.banner
             end
-       
+
             local lines
             if type(ascii) == "table" then
                 lines = ascii
@@ -82,9 +92,6 @@ function M.setup(opts)
                     r = r .. string.format("      %d  %s      |", i, utils.shorten(file, length))
                     vim.keymap.set("n", tostring(i), function()
                         vim.cmd("e " .. vim.fn.fnameescape(file))
-                        for k, v in pairs(opts) do
-                            vim.wo[k] = v
-                        end
                     end, { buffer = buf })
                 end
                 r = r:sub(1, -2) .. "  "

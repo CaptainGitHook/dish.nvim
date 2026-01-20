@@ -102,3 +102,7 @@ Example installation:
     end,
 }
 ```
+
+## Future Ideas
+
+A "pinned" subpage? Put pinned pages in ~/.local/share/dish/.
