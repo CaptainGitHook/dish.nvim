@@ -6,7 +6,8 @@ local conf = {
     bannerpath="",
     path="", -- Not implemented yet
     projpaths={},
-    N_RECENT=5
+    N_RECENT=5,
+    LINES_ABOVE=1 -- Lines below = lines above +1
 }
 
 
@@ -70,10 +71,11 @@ function M.setup(opts)
                 lines = vim.split(ascii, "\n", { plain = true })
             end
             local height = vim.api.nvim_win_get_height(0)
-            for _=1, math.max(5, math.floor(0.5*(height*0.8-#lines))) do
+            for _=1, math.max(conf.LINES_ABOVE, math.floor(0.5*(height*0.8-#lines))) do
                 table.insert(lines,1,"") -- insert in front
                 table.insert(lines,"") -- insert in back
             end
+            table.insert(lines,"")
 
             -- Layout: first 80% picture, fifthlast line onwards: stuff
             for _=1, math.max(1, math.floor(height-3-#lines)) do

@@ -65,7 +65,8 @@ Defaults are
     ]]
     bannerpath="",
     projpaths={},
-    N_RECENT=5
+    N_RECENT=5,
+    LINES_ABOVE=1
 }
 ```
 
