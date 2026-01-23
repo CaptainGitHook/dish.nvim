@@ -62,10 +62,10 @@ function M.setup(opts)
             elseif type(conf.banner) == "function" then
                 ascii = conf.banner()
             else
-                local h = height - 30 +2*conf.LINES_ABOVE
+                local h = height - 33 - 2*conf.LINES_ABOVE -- height of banner +3 + 1 line below+ lines above twice
                 if h > 0 then
                     ascii = vim.fn.readfile(vim.api.nvim_get_runtime_file("data/ramen.sh", false)[1])
-                elseif h-6>0 then -- ramen_smiling is 6 lines smaller
+                elseif h+6>0 then -- ramen_smiling is 6 lines smaller
                     ascii = vim.fn.readfile(vim.api.nvim_get_runtime_file("data/ramen_smiling.sh", false)[1])
                 else
                     ascii = vim.fn.readfile(vim.api.nvim_get_runtime_file("data/gopher.sh", false)[1])
