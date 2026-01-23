@@ -2,7 +2,7 @@ local M = {}
 
 
 local conf = {
-    banner=vim.fn.readfile(vim.api.nvim_get_runtime_file("data/ramen.sh", false)[1]),
+    banner="",
     bannerpath="",
     path="", -- Not implemented yet
     projpaths={},
@@ -51,6 +51,7 @@ function M.setup(opts)
             vim.wo.relativenumber = false
 
             -- Build content
+            local height = vim.api.nvim_win_get_height(0)
             local ascii = ""
             if conf.bannerpath ~= "" then
                 if vim.fn.filereadable(conf.bannerpath) then
@@ -61,7 +62,14 @@ function M.setup(opts)
             elseif type(conf.banner) == "function" then
                 ascii = conf.banner()
             else
-                ascii = conf.banner
+                local h = height - 30 +2*conf.LINES_ABOVE
+                if h > 0 then
+                    ascii = vim.fn.readfile(vim.api.nvim_get_runtime_file("data/ramen.sh", false)[1])
+                elseif h-6>0 then -- ramen_smiling is 6 lines smaller
+                    ascii = vim.fn.readfile(vim.api.nvim_get_runtime_file("data/ramen_smiling.sh", false)[1])
+                else
+                    ascii = vim.fn.readfile(vim.api.nvim_get_runtime_file("data/gopher.sh", false)[1])
+                end
             end
 
             local lines
@@ -70,7 +78,6 @@ function M.setup(opts)
             else
                 lines = vim.split(ascii, "\n", { plain = true })
             end
-            local height = vim.api.nvim_win_get_height(0)
             for _=1, math.max(conf.LINES_ABOVE, math.floor(0.5*(height*0.8-#lines))) do
                 table.insert(lines,1,"") -- insert in front
                 table.insert(lines,"") -- insert in back
